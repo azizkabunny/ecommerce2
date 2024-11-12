@@ -8,34 +8,34 @@ import { Category } from '@/types/category.type';
 import { Product } from '@/types/product.type';
 
 export default async function HomePage() {
-  const resCategories = await axios.get(
-    'https://api.escuelajs.co/api/v1/categories'
-  );
+	const resCategories = await axios.get(
+		'https://api.escuelajs.co/api/v1/categories'
+	);
 
-  const resProduct = await axios.get(
-    'https://api.escuelajs.co/api/v1/products'
-  );
-  const categories: Category[] = resCategories.data;
-  const products: Product[] = resProduct.data;
+	const resProduct = await axios.get(
+		'https://api.escuelajs.co/api/v1/products'
+	);
+	const categories: Category[] = resCategories.data;
+	const products: Product[] = resProduct.data;
 
-  return (
-    <>
-      <HomeBanner />
-      <CategoriesList categories={categories.slice(0, 6)} />
+	return (
+		<>
+			<HomeBanner />
+			<CategoriesList categories={categories.slice(0, 6)} />
 
-      <section className='w-full py-12'>
-        <div className='container mx-auto px-4 md:px-6'>
-          <h2 className='text-3xl font-semibold tracking-tighter mb-8'>
-            Featured Products
-          </h2>
-          <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'>
-            {products.slice(0, 12).map((product) => (
-              <ProductCard product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* <section className='w-full py-12 bg-gray-100'>
+			<section className='w-full py-12'>
+				<div className='container mx-auto px-4 md:px-6'>
+					<h2 className='text-3xl font-semibold tracking-tighter mb-8'>
+						Featured Products
+					</h2>
+					<div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'>
+						{products.slice(0, 12).map((product) => (
+							<ProductCard key={product.id} product={product} />
+						))}
+					</div>
+				</div>
+			</section>
+			{/* <section className='w-full py-12 bg-gray-100'>
         <div className='container mx-auto px-4 md:px-6'>
           <h2 className='text-3xl font-semibold tracking-tighter mb-8'>
             Our Brands
@@ -60,6 +60,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section> */}
-    </>
-  );
+		</>
+	);
 }
