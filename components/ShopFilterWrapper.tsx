@@ -47,8 +47,9 @@ interface iProps {
 	categories: Category[];
 	products: Product[];
 }
+
 export default function ShopFilterWrapper({ categories, products }: iProps) {
-	const [filteredProducts, setFilteredProducts] = React.useState(products);
+	const [filteredProducts, setFilteredProducts] = React.useState<Product[]>([]);
 	const [filters, setFilters] = React.useState({
 		category: [],
 		brand: [],
@@ -57,6 +58,10 @@ export default function ShopFilterWrapper({ categories, products }: iProps) {
 		price: [0, 200],
 		gender: [],
 	});
+
+	React.useEffect(() => {
+		setFilteredProducts(products);
+	}, [products]);
 
 	const searchParams = useSearchParams();
 	const categoryIds = searchParams.get('categoryId')?.split(',') || [];
@@ -99,6 +104,7 @@ export default function ShopFilterWrapper({ categories, products }: iProps) {
 
 	const handleToggleCategory = (id: number) => {
 		router.push(`/shop?categoryId=${id}`);
+		// const newPath = `/${locale}${pathname}`;
 		// router.refresh();
 		// if (categoryIds?.includes(String(id))) {
 		// 	if (categoryIds.length > 1) {
@@ -187,11 +193,6 @@ export default function ShopFilterWrapper({ categories, products }: iProps) {
 									<Checkbox
 										id={`category`}
 										checked={categoryIds?.includes(String(item.id))}
-										// checked={item.id === Number(categoryId)}
-										// checked={filters[filterType].includes(item)}
-										// onCheckedChange={() =>
-										// 	// handleCheckboxChange(filterType, item)
-										// }
 										onCheckedChange={() => {
 											handleToggleCategory(item.id);
 										}}
